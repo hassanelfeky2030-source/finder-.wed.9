@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find an Address</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 520px;
+      margin: 60px auto;
+      padding: 24px;
+      background: #f4f7fb;
+      color: #172033;
+    }
+
+    main {
+      padding: 28px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px #00000012;
+    }
+
+    label, input, select, button {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 14px;
+    }
+
+    input, select, button {
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccd3df;
+      border-radius: 7px;
+    }
+
+    button {
+      border: 0;
+      background: #1769e0;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0e54bb;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Find an Address</h1>
+    <p>Enter a destination to get directions in Google Maps.</p>
+
+    <form id="directions-form">
+      <label for="address">Destination address</label>
+      <input
+        id="address"
+        type="text"
+        placeholder="For example: 10 Downing Street, London"
+        required
+      >
+
+      <label for="mode">Travel by</label>
+      <select id="mode">
+        <option value="driving">Car</option>
+        <option value="walking">Walking</option>
+        <option value="transit">Public transit</option>
+        <option value="bicycling">Bicycle</option>
+      </select>
+
+      <button type="submit">Get directions</button>
+    </form>
+  </main>
+
+  <script>
+    document.getElementById("directions-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const address = document.getElementById("address").value.trim();
+      const mode = document.getElementById("mode").value;
+
+      if (!address) return;
+
+      const mapsUrl = new URL("https://www.google.com/maps/dir/");
+      mapsUrl.searchParams.set("api", "1");
+      mapsUrl.searchParams.set("destination", address);
+      mapsUrl.searchParams.set("travelmode", mode);
+
+      window.open(mapsUrl.toString(), "_blank", "noopener,noreferrer");
+    });
+  </script>
+</body>
+</html>
